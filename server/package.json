@@ -8,6 +8,14 @@
   "license": "none",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "tslint 'src/**/*.ts'"
+  },
+  "dependencies": {
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "tslint": "^6.1.2"
   }
 }
