@@ -1,18 +1,27 @@
-version: "3.8"
+version: '3.8'
 services:
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: abc1234
   owl_client:
     container_name: owl_client
     build:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - '8080:8080'
     command: yarn start
-  owl_server:
-    container_name: owl_server
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    command: yarn start
+  # owl_server:
+  #   container_name: owl_server
+  #   build:
+  #     context: ./server
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '3000:3000'
+  #   environment:
+  #     - DB_HOST=host.docker.internal
+  #   command: yarn start

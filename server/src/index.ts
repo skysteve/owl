@@ -1,9 +1,18 @@
 import * as express from 'express';
-import { initRouter } from './router'
+import * as bodyParser from 'body-parser';
+import { initRouter } from './router';
+import { initMongoDB } from './dbConnection';
 
-const app = express();
 const port = 3000;
 
-initRouter(app);
+const app = express();
+app.use(bodyParser.json());
 
-app.listen(port, () => console.log(`Server listening at http://localhost:${port}`));
+// self executing fn to allow for async/await
+(async () => {
+  const mongoDB = await initMongoDB();
+  initRouter(app, mongoDB);
+
+  app.listen(port, () => console.log(`Server listening at http://localhost:${port}`));
+})();
+

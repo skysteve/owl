@@ -1,5 +1,5 @@
 FROM node:12
-WORKDIR /app
+WORKDIR /client
 
 # dependencies will be installed only if the package files change
 COPY . .
