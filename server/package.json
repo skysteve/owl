@@ -1,0 +1,13 @@
+{
+  "name": "owl_server",
+  "version": "1.0.0",
+  "description": "Server for owl assessment",
+  "main": "index.js",
+  "repository": "https://github.com/skysteve/owl",
+  "author": "skysteve",
+  "license": "none",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  }
+}

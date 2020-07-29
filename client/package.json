@@ -1,0 +1,13 @@
+{
+  "name": "owl_client",
+  "version": "1.0.0",
+  "description": "Client for owl assessment",
+  "main": "index.js",
+  "repository": "https://github.com/skysteve/owl",
+  "author": "skysteve",
+  "license": "none",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  }
+}

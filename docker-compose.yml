@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  owl_client:
+    container_name: owl_client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    command: yarn start
+  owl_server:
+    container_name: owl_server
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    command: yarn start
