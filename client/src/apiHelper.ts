@@ -4,6 +4,7 @@ import { IssueList } from "./components/IssuesList";
 import { EventTypes } from "./definitions/events";
 import { IIssue } from "../../interfaces/IIssue";
 import { DeleteIssueEvent } from "./events/DeleteIssueEvent";
+import { PopupNotification } from "./components/PopupNotification";
 
 const apiWorker = new Worker('/assets/js/workers/apiWorker.js');
 
@@ -29,7 +30,11 @@ apiWorker.onmessage = (event: MessageEvent) => {
     throw new Error(`Unknown message type ${JSON.stringify(message)}`);
   }
 
-  // TODO check for errors
+  if (message.error) {
+    const notification = new PopupNotification(message.error);
+    notification.display();
+    return;
+  }
 
   switch (message.method) {
     case 'delete': {

@@ -50,6 +50,11 @@
       </span>
     </div>
   </template>
+  <template id="tmpl-notification">
+    <div class="notification is-danger">
+      <slot name="message" id="message">Something went wrong</slot>
+    </div>
+  </template>
 
   <script src="/assets/js/main.js" type="module"></script>
 </body>

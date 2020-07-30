@@ -22,6 +22,16 @@ issue-list {
   overflow: auto;
 }
 
+popup-notification {
+  z-index: 99;
+  display: block;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  max-width: 25rem;
+  max-height: 10rem;
+}
+
 .issue-text {
   resize: none;
   margin-bottom: 1rem;
