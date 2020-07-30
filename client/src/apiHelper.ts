@@ -3,6 +3,7 @@ import { IApiResponseMessage } from "../../interfaces/IApiResponseMessage";
 import { IssueList } from "./components/IssuesList";
 import { EventTypes } from "./definitions/events";
 import { IIssue } from "../../interfaces/IIssue";
+import { DeleteIssueEvent } from "./events/DeleteIssueEvent";
 
 const apiWorker = new Worker('/assets/js/workers/apiWorker.js');
 
@@ -28,7 +29,12 @@ apiWorker.onmessage = (event: MessageEvent) => {
     throw new Error(`Unknown message type ${JSON.stringify(message)}`);
   }
 
+  // TODO check for errors
+
   switch (message.method) {
+    case 'delete': {
+      break;
+    }
     case 'getAll': {
       const issueList = document.querySelector('issue-list') as IssueList;
       issueList.loading = false;
@@ -51,4 +57,15 @@ document.addEventListener(EventTypes.NEW_ISSUE, (event: CustomEvent) => {
   };
 
   apiWorker.postMessage(msg)
-})
+});
+
+document.addEventListener(EventTypes.DELETE_ISSUE, (event: DeleteIssueEvent) => {
+  const msg: IApiRequestMessage = {
+    type: 'issue',
+    method: 'delete',
+    list: location.hash.replace('#', '') || undefined,
+    issueId: event.issueId
+  };
+
+  apiWorker.postMessage(msg)
+});

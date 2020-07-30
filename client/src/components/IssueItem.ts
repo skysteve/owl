@@ -1,4 +1,5 @@
 import { IIssue } from '../../../interfaces/IIssue';
+import { DeleteIssueEvent } from '../events/DeleteIssueEvent';
 
 
 export class IssueItem extends HTMLLIElement {
@@ -14,7 +15,9 @@ export class IssueItem extends HTMLLIElement {
 
   private onDelete(): void {
     this.loading = true;
-    alert('TODO delete');
+
+    const event = new DeleteIssueEvent(this.issue._id);
+    document.dispatchEvent(event);
   }
 
   private render(): void {

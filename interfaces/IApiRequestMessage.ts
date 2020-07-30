@@ -6,4 +6,5 @@ export interface IApiRequestMessage {
   method: IApiMethod;
   list?: string;
   issue?: IIssue;
+  issueId?: string;
 }

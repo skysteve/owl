@@ -23,6 +23,20 @@ async function createIssue(issue: IIssue, list?: string): Promise<IIssue> {
   return body.issue as IIssue;
 }
 
+async function deleteIssue(issue: string, list?: string): Promise<void> {
+  const result = await fetch(`${BASE_URL}/issues/${issue}${list ? `?list=${list}` : ''}`, {
+    method: 'DELETE',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!result.ok) {
+    throw new Error(`Failed to create issue ${result.statusText}`);
+  }
+}
+
 async function getAll(list?: string): Promise<IIssue[]> {
   const result = await fetch(`${BASE_URL}/issues${list ? `?list=${list}` : ''}`);
 
@@ -43,6 +57,10 @@ export async function handleIssueRequest(request: IApiRequestMessage): Promise<v
   }
 
   switch (request.method) {
+    case 'delete': {
+      await deleteIssue(request.issueId, request.list);
+      break;
+    }
     case 'getAll': {
       result.data.issues = await getAll(request.list);
       break;
