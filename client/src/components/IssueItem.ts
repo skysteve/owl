@@ -2,10 +2,10 @@ import { IIssue } from '../../../interfaces/IIssue';
 
 
 export class IssueItem extends HTMLLIElement {
-  constructor(event: CustomEvent) {
+  constructor(issue: IIssue) {
     super();
 
-    this.issue = event.detail;
+    this.issue = issue;
 
     this.render();
   }

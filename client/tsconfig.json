@@ -1,0 +1,13 @@
+// This file isn't used anywhere, it just keeps VS code happy when type checking
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "lib": ["ES6", "DOM", "WebWorker"]
+  },
+  "include": ["src/**/*", "workers/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

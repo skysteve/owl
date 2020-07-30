@@ -9,19 +9,20 @@
   "private": true,
   "scripts": {
     "serve": "static-server public --open --no-nocache",
-    "build": "rollup --config rollup.config.js src/main.ts",
-    "build-watch": "rollup --watch --config rollup.config.js src/main.ts",
+    "build": "rollup --config",
+    "build-watch": "rollup --watch --config",
     "lint": "tslint 'src/**/*.ts'"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^5.0.2",
+    "prettier": "^2.0.5",
     "rollup": "^2.23.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "tslib": "^2.0.0",
     "tslint": "^6.1.2",
-    "typescript": "^3.9.7",
-    "prettier": "^2.0.5",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.3.0"
+    "tslint-plugin-prettier": "^2.3.0",
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "static-server": "^2.2.1"
