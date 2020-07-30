@@ -8,7 +8,7 @@
   "license": "none",
   "private": true,
   "scripts": {
-    "serve": "static-server public --open",
+    "serve": "static-server public --open --no-nocache",
     "build": "rollup --config rollup.config.js src/main.ts",
     "build-watch": "rollup --watch --config rollup.config.js src/main.ts",
     "lint": "tslint 'src/**/*.ts'"
