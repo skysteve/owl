@@ -1,10 +1,40 @@
+body {
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+input-form {
+  display: block;
+  margin-top: 2rem;
+}
+
+issue-list {
+  max-height: calc(100vh - 8rem);
+  margin-bottom: 1rem;
+
+  display: block;
+}
+
 .issue-list {
+  max-height: calc(100vh - 9rem);
   width: 100%;
+  padding: 1rem;
+  overflow: auto;
 }
 
 .issue-text {
-  margin: 1rem;
   resize: none;
-  min-width: calc(100% - 2rem);
-  max-width: calc(100% - 2rem);
+  margin-bottom: 1rem;
+}
+
+.delete-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  border-radius: 4%;
+  z-index: 2;
+  pointer-events: auto !important;
 }
