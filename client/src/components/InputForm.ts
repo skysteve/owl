@@ -12,11 +12,13 @@ export class InputForm extends HTMLElement {
 
     const event = new CustomEvent(EventTypes.NEW_ISSUE, {
       detail: {
-        value
+        title: value
       }
     });
 
     document.dispatchEvent(event);
+    // clear input
+    this.input.value = '';
     // TODO API request
   }
 
@@ -39,7 +41,7 @@ export class InputForm extends HTMLElement {
     const template = document.querySelector('#tmpl-input-form') as HTMLTemplateElement;
     const templateContent = template.content;
 
-    this.appendChild(templateContent);
+    this.appendChild(templateContent.cloneNode(true));
 
     this.button.addEventListener('click', this.onAdd.bind(this));
     this.input.addEventListener('keyup', this.onInputChange.bind(this));

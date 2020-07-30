@@ -1,0 +1,10 @@
+.issue-list {
+  width: 100%;
+}
+
+.issue-text {
+  margin: 1rem;
+  resize: none;
+  min-width: calc(100% - 2rem);
+  max-width: calc(100% - 2rem);
+}

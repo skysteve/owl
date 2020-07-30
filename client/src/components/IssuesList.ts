@@ -1,4 +1,5 @@
 import { EventTypes } from "../definitions/events";
+import { IssueItem } from "./IssueItem";
 
 export class IssueList extends HTMLElement {
   constructor() {
@@ -9,9 +10,8 @@ export class IssueList extends HTMLElement {
   }
 
   private onNewEvent(event: CustomEvent): void {
-    // TODO should be a custom element
-    const element = document.createElement('li');
-    element.textContent = event.detail.value;
+    console.log('aa', event);
+    const element = new IssueItem(event);
     this.eventList.appendChild(element);
   }
 
@@ -19,7 +19,7 @@ export class IssueList extends HTMLElement {
     const template = document.querySelector('#tmpl-issue-list') as HTMLTemplateElement;
     const templateContent = template.content;
 
-    this.appendChild(templateContent);
+    this.appendChild(templateContent.cloneNode(true));
   }
 
   private get eventList(): HTMLUListElement {

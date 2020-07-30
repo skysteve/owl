@@ -40,12 +40,18 @@
   </template>
 
   <template id="tmpl-issue-list">
-    <div class="tile has-background-light">
-      <ul></ul>
+    <div class="container">
+      <div class="tile has-background-light">
+        <ul class="issue-list"></ul>
+      </div>
     </div>
   </template>
 
-  <script src="/assets/js/main.js"></script>
+  <template id="tmpl-issue-item">
+    <textarea readonly class="textarea issue-text"></textarea>
+  </template>
+
+  <script src="/assets/js/main.js" type="module"></script>
 </body>
 
 </html>
