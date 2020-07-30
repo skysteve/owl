@@ -6,5 +6,7 @@ COPY . .
 
 RUN yarn
 
+RUN yarn build
+
 # start app
-CMD ["yarn", "start"]
+CMD ["yarn", "serve"]

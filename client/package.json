@@ -8,6 +8,18 @@
   "license": "none",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "serve": "static-server public --open",
+    "build": "rollup --config rollup.config.js src/main.ts",
+    "build-watch": "rollup --watch --config rollup.config.js src/main.ts"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^5.0.2",
+    "rollup": "^2.23.0",
+    "tslib": "^2.0.0",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "static-server": "^2.2.1"
   }
 }
