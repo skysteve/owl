@@ -1,3 +1,5 @@
+import { EventTypes } from "../definitions/events";
+
 export class InputForm extends HTMLElement {
   constructor() {
     super();
@@ -8,7 +10,14 @@ export class InputForm extends HTMLElement {
   private onAdd(): void {
     const value = this.input.value.trim();
 
-    alert(value);
+    const event = new CustomEvent(EventTypes.NEW_ISSUE, {
+      detail: {
+        value
+      }
+    });
+
+    document.dispatchEvent(event);
+    // TODO API request
   }
 
   private onInputChange(event: KeyboardEvent): void {
