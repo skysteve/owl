@@ -8,10 +8,24 @@ export class IssueList extends HTMLElement {
     super();
 
     this.render();
-    document.addEventListener(EventTypes.NEW_ISSUE, this.onNewEvent.bind(this))
+    document.addEventListener(EventTypes.NEW_ISSUE, this.onNewEvent.bind(this));
+
+    this.addEventListener('dragstart', this.onIssueDragStart.bind(this));
+    this.addEventListener('dragend', this.onIssueDragEnd.bind(this));
+    this.addEventListener('dragstart', this.onIssueDragStart.bind(this));
+    this.addEventListener('dragend', this.onIssueDragEnd.bind(this));
   }
 
   private _issues: IIssue[] = [];
+
+  private onIssueDragStart() {
+    this.style.border = '1px solid green';
+  }
+
+  private onIssueDragEnd() {
+    this.style.border = 'unset';
+  }
+
 
   private onNewEvent(event: CustomEvent): void {
     const element = new IssueItem(event.detail as IIssue);
