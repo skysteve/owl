@@ -29,6 +29,7 @@ export class IssueList extends HTMLElement {
 
   private onNewEvent(event: CustomEvent): void {
     const element = new IssueItem(event.detail as IIssue);
+    element.loading = true;
     this.eventList.appendChild(element);
   }
 

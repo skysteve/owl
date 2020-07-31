@@ -5,6 +5,7 @@ import { EventTypes } from "./definitions/events";
 import { IIssue } from "../../interfaces/IIssue";
 import { DeleteIssueEvent } from "./events/DeleteIssueEvent";
 import { PopupNotification } from "./components/PopupNotification";
+import { IssueItem } from "./components/IssueItem";
 
 const apiWorker = new Worker('/assets/js/workers/apiWorker.js');
 
@@ -57,6 +58,12 @@ apiWorker.onmessage = (event: MessageEvent) => {
         const notification = new PopupNotification('New list created', 'info');
         notification.display();
       }
+
+      console.log(message);
+
+      const elIssue = document.querySelector(`#issue-${message.originalId}`) as IssueItem;
+      elIssue.updateCreateStatus(true, message.data.issue);
+      break;
     }
     default: {
       throw new Error(`Unknown method ${message.method}`);

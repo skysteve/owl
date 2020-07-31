@@ -9,7 +9,7 @@ async function createIssue(issue: IIssue, list?: string): Promise<{ newList: boo
   const result = await retryableFetch(`${BASE_URL}/issues${list ? `?list=${list}` : ''}`, {
     method: 'POST',
     mode: 'cors',
-    body: JSON.stringify(issue),
+    body: JSON.stringify({ ...issue, _id: undefined }),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -102,6 +102,7 @@ export async function handleIssueRequest(request: IApiRequestMessage): Promise<v
     }
     case 'post': {
       result.data = await createIssue(request.issue, request.list);
+      result.originalId = request.issue._id;
       break;
     }
     case 'reorder': {

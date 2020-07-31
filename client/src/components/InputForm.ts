@@ -12,6 +12,7 @@ export class InputForm extends HTMLElement {
 
     const event = new CustomEvent(EventTypes.NEW_ISSUE, {
       detail: {
+        _id: `new-${new Date().getTime()}`,
         title: value
       }
     });
@@ -19,7 +20,6 @@ export class InputForm extends HTMLElement {
     document.dispatchEvent(event);
     // clear input
     this.input.value = '';
-    // TODO API request
   }
 
   private onInputChange(event: KeyboardEvent): void {

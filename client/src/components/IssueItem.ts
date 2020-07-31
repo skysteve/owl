@@ -61,7 +61,6 @@ export class IssueItem extends HTMLLIElement {
     document.dispatchEvent(reorderEvent);
   }
 
-
   private render(): void {
     const template = document.querySelector('#tmpl-issue-item') as HTMLTemplateElement;
     const templateContent = template.content;
@@ -83,7 +82,7 @@ export class IssueItem extends HTMLLIElement {
 
   private toggleDelete(isVisible: boolean) {
     if (isVisible) {
-      this.removeAttribute('style');
+      this.querySelector('.icon').removeAttribute('style');
     } else {
       this.querySelector('.icon').setAttribute('style', 'display: none;');
     }
@@ -96,6 +95,16 @@ export class IssueItem extends HTMLLIElement {
       this.controlEl.classList.add('is-loading');
     } else {
       this.controlEl.classList.remove('is-loading');
+    }
+  }
+
+  public updateCreateStatus(success: boolean, updatedIssue?: IIssue): void {
+    this.loading = false;
+
+    if (!success) {
+      this.remove();
+    } else {
+      this.issue = updatedIssue;
     }
   }
 

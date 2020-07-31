@@ -9,5 +9,6 @@ export interface IApiResponseMessage {
     issues?: IIssue[];
     issue?: IIssue;
     newList?: boolean;
-  }
+  };
+  originalId?: string;
 }
