@@ -71,6 +71,18 @@ async function reorderIssues({ id, previousId }: { id: string, previousId?: stri
   return body.issues as IIssue[];
 }
 
+async function resetIssues(list?: string): Promise<void> {
+  const result = await fetch(`${BASE_URL}/issues${list ? `?list=${list}` : ''}`, {
+    method: 'DELETE'
+  });
+
+  if (!result.ok) {
+    throw new Error(`Failed to reset list  ${result.statusText}`);
+  }
+
+  return;
+}
+
 export async function handleIssueRequest(request: IApiRequestMessage): Promise<void> {
   const result: IApiResponseMessage = {
     type: request.type,
@@ -97,6 +109,10 @@ export async function handleIssueRequest(request: IApiRequestMessage): Promise<v
       } else {
         await reorderIssues(request.reorder, request.list);
       }
+      break;
+    }
+    case 'reset': {
+      await resetIssues(request.list);
       break;
     }
     default: {

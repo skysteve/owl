@@ -46,7 +46,12 @@ apiWorker.onmessage = (event: MessageEvent) => {
       issueList.issues = message.data?.issues
 
       break;
-    } default: {
+    }
+    case 'reset': {
+      (document.querySelector('issue-list') as IssueList).reset();
+      break;
+    }
+    default: {
       throw new Error(`Unknown method ${message.method}`);
     }
   }
@@ -83,6 +88,16 @@ document.addEventListener(EventTypes.REORDER_ISSUE, (event: CustomEvent) => {
     reorder: {
       ...event.detail
     }
+  };
+
+  apiWorker.postMessage(msg)
+});
+
+document.querySelector('#btn-reset').addEventListener('click', () => {
+  const msg: IApiRequestMessage = {
+    type: 'issue',
+    method: 'reset',
+    list: location.hash.replace('#', '') || undefined,
   };
 
   apiWorker.postMessage(msg)

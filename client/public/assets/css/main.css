@@ -52,3 +52,9 @@ popup-notification {
   z-index: 2;
   pointer-events: auto !important;
 }
+
+#btn-reset {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}

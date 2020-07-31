@@ -50,6 +50,12 @@ export class IssueList extends HTMLElement {
     return this.querySelector('ul') as HTMLUListElement;
   }
 
+  public reset() {
+    this._issues = [];
+    this.innerHTML = '';
+    this.render();
+  }
+
   public set loading(isLoading: boolean) {
     // always clear inner html
     this.innerHTML = '';
