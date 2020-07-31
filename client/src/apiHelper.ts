@@ -52,6 +52,9 @@ apiWorker.onmessage = (event: MessageEvent) => {
       (document.querySelector('issue-list') as IssueList).reset();
       break;
     }
+    case 'reorder': {
+      break;
+    }
     case 'post': {
       // show notification if new list was created
       if (message.data.newList) {

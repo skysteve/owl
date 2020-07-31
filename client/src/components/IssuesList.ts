@@ -57,6 +57,35 @@ export class IssueList extends HTMLElement {
     this.render();
   }
 
+  public reorderIssues(movedIssue: IIssue, target: IIssue) {
+    let previousId;
+
+    // if target is the first item in the array - previous stays undefined
+    if (target._id === this._issues[0]._id) {
+      this._issues = this._issues.filter((issue) => issue._id !== movedIssue._id);
+      this._issues.unshift(movedIssue);
+    } else {
+      const insertAt = this._issues.findIndex((issue) => issue._id === target._id);
+      previousId = this._issues[insertAt]._id;
+      this._issues = this._issues.filter((issue) => issue._id !== movedIssue._id);
+      this._issues.splice(insertAt, 0, movedIssue);
+    }
+
+    // this isn't optimal - it re-renders the whole list, but it's quicker for now
+    // ideally we should just remove the moved issue and re-insert it
+    this.innerHTML = '';
+    this.render();
+
+    const reorderEvent = new CustomEvent(EventTypes.REORDER_ISSUE, {
+      detail: {
+        id: movedIssue._id,
+        previousId
+      }
+    });
+
+    document.dispatchEvent(reorderEvent);
+  }
+
   public set loading(isLoading: boolean) {
     // always clear inner html
     this.innerHTML = '';

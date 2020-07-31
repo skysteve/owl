@@ -1,6 +1,7 @@
 import { IIssue } from '../../../interfaces/IIssue';
 import { DeleteIssueEvent } from '../events/DeleteIssueEvent';
 import { EventTypes } from '../definitions/events';
+import { IssueList } from './IssuesList';
 
 
 export class IssueItem extends HTMLLIElement {
@@ -30,7 +31,7 @@ export class IssueItem extends HTMLLIElement {
     this.style.opacity = '0.5';
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.dropEffect = 'move';
-    event.dataTransfer.setData('text', this.id);
+    event.dataTransfer.setData('application/json', JSON.stringify({ ...this.issue }));
   }
 
   private onIssueDragEnd(event: DragEvent) {
@@ -45,20 +46,9 @@ export class IssueItem extends HTMLLIElement {
 
   private onIssueDrop(event: DragEvent) {
     event.preventDefault();
-    const issueId = event.dataTransfer.getData('text');
+    const issue = JSON.parse(event.dataTransfer.getData('application/json'));
 
-    const elIssue = this.parentElement.querySelector(`#${issueId}`);
-    this.parentElement.removeChild(elIssue);
-    this.after(elIssue);
-
-    const reorderEvent = new CustomEvent(EventTypes.REORDER_ISSUE, {
-      detail: {
-        id: issueId.replace('issue-', ''),
-        previousId: this.issue._id
-      }
-    });
-
-    document.dispatchEvent(reorderEvent);
+    (this.closest('issue-list') as IssueList).reorderIssues(issue, this.issue);
   }
 
   private render(): void {
@@ -86,6 +76,10 @@ export class IssueItem extends HTMLLIElement {
     } else {
       this.querySelector('.icon').setAttribute('style', 'display: none;');
     }
+  }
+
+  public get order(): number {
+    return this.issue.order;
   }
 
   public set loading(isLoading: boolean) {
