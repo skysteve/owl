@@ -25,15 +25,15 @@ apiWorker.onmessage = (event: MessageEvent) => {
   // clear loading state
   const message: IApiResponseMessage = event.data as IApiResponseMessage;
 
-  // sanity check
-  if (message.type !== 'issue') {
-    throw new Error(`Unknown message type ${JSON.stringify(message)}`);
-  }
-
   if (message.error) {
     const notification = new PopupNotification(message.error, 'danger');
     notification.display();
     return;
+  }
+
+  // sanity check
+  if (message.type !== 'issue') {
+    throw new Error(`Unknown message type ${JSON.stringify(message)}`);
   }
 
   switch (message.method) {
