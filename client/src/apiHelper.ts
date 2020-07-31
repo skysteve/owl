@@ -74,3 +74,16 @@ document.addEventListener(EventTypes.DELETE_ISSUE, (event: DeleteIssueEvent) => 
 
   apiWorker.postMessage(msg)
 });
+
+document.addEventListener(EventTypes.REORDER_ISSUE, (event: CustomEvent) => {
+  const msg: IApiRequestMessage = {
+    type: 'issue',
+    method: 'reorder',
+    list: location.hash.replace('#', '') || undefined,
+    reorder: {
+      ...event.detail
+    }
+  };
+
+  apiWorker.postMessage(msg)
+});

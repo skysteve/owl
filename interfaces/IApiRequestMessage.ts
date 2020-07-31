@@ -7,4 +7,8 @@ export interface IApiRequestMessage {
   list?: string;
   issue?: IIssue;
   issueId?: string;
+  reorder?: {
+    id: string;
+    previousId?: string;
+  }
 }

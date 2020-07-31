@@ -1,5 +1,6 @@
 import { IIssue } from '../../../interfaces/IIssue';
 import { DeleteIssueEvent } from '../events/DeleteIssueEvent';
+import { EventTypes } from '../definitions/events';
 
 
 export class IssueItem extends HTMLLIElement {
@@ -49,6 +50,15 @@ export class IssueItem extends HTMLLIElement {
     const elIssue = this.parentElement.querySelector(`#${issueId}`);
     this.parentElement.removeChild(elIssue);
     this.after(elIssue);
+
+    const reorderEvent = new CustomEvent(EventTypes.REORDER_ISSUE, {
+      detail: {
+        id: issueId.replace('issue-', ''),
+        previousId: this.issue._id
+      }
+    });
+
+    document.dispatchEvent(reorderEvent);
   }
 
 
