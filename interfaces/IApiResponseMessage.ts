@@ -8,5 +8,6 @@ export interface IApiResponseMessage {
   data?: {
     issues?: IIssue[];
     issue?: IIssue;
+    newList?: boolean;
   }
 }

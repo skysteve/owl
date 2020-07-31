@@ -4,7 +4,7 @@ import { IApiResponseMessage } from "../../../interfaces/IApiResponseMessage";
 
 const BASE_URL = 'http://localhost:3000'
 
-async function createIssue(issue: IIssue, list?: string): Promise<IIssue> {
+async function createIssue(issue: IIssue, list?: string): Promise<{ newList: boolean, issue: IIssue }> {
   const result = await fetch(`${BASE_URL}/issues${list ? `?list=${list}` : ''}`, {
     method: 'POST',
     mode: 'cors',
@@ -20,7 +20,7 @@ async function createIssue(issue: IIssue, list?: string): Promise<IIssue> {
 
   const body = await result.json();
 
-  return body.issue as IIssue;
+  return body as { newList: boolean, issue: IIssue };
 }
 
 async function deleteIssue(issue: string, list?: string): Promise<void> {
@@ -100,7 +100,7 @@ export async function handleIssueRequest(request: IApiRequestMessage): Promise<v
       break;
     }
     case 'post': {
-      result.data.issue = await createIssue(request.issue, request.list);
+      result.data = await createIssue(request.issue, request.list);
       break;
     }
     case 'reorder': {

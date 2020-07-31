@@ -31,7 +31,7 @@ apiWorker.onmessage = (event: MessageEvent) => {
   }
 
   if (message.error) {
-    const notification = new PopupNotification(message.error);
+    const notification = new PopupNotification(message.error, 'danger');
     notification.display();
     return;
   }
@@ -50,6 +50,13 @@ apiWorker.onmessage = (event: MessageEvent) => {
     case 'reset': {
       (document.querySelector('issue-list') as IssueList).reset();
       break;
+    }
+    case 'post': {
+      // show notification if new list was created
+      if (message.data.newList) {
+        const notification = new PopupNotification('New list created', 'info');
+        notification.display();
+      }
     }
     default: {
       throw new Error(`Unknown method ${message.method}`);
