@@ -1,0 +1,16 @@
+FROM node:12
+WORKDIR /client
+
+# this is a bit of a hack to copy interfaces in
+# normally the docker file should be inside the client directory
+# with the interfaces published to a private NPM package/similar to keep things cleaner
+COPY ./interfaces ./interfaces
+COPY ./client ./client
+
+WORKDIR /client/client
+RUN yarn
+
+RUN yarn build
+
+# start app
+CMD ["yarn", "serve"]

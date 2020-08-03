@@ -1,24 +1,24 @@
-version: "3.8"
+version: '3.8'
 services:
   mongodb:
     image: mongo
     ports:
       - 27017:27017
-  # owl_client:
-  #   container_name: owl_client
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "9080:9080"
-  #   command: yarn serve
-  # owl_server:
-  #   container_name: owl_server
-  #   build:
-  #     context: ./server
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - DB_HOST=host.docker.internal
-  #   command: yarn start
+  owl_client:
+    container_name: owl_client
+    build:
+      context: ./
+      dockerfile: Dockerfile-client
+    ports:
+      - '9080:9080'
+    command: yarn serve
+  owl_server:
+    container_name: owl_server
+    build:
+      context: ./
+      dockerfile: Dockerfile-server
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_HOST=host.docker.internal
+    command: yarn start
