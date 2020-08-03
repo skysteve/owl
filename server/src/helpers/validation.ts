@@ -5,7 +5,7 @@ export function validateIssue(issue: IIssue): string | void {
     return 'Type of issue should be a JSON object';
   }
 
-  if (!issue.title || issue.title.length < 1) {
+  if (!issue.title || issue.title.trim().length < 1) {
     return 'Issue title can not be empty';
   }
 }
