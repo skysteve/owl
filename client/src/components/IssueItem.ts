@@ -99,6 +99,7 @@ export class IssueItem extends HTMLLIElement {
       this.remove();
     } else {
       this.issue = updatedIssue;
+      this.id = `issue-${this.issue._id}`;
     }
   }
 

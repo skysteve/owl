@@ -15,8 +15,8 @@ async function createIssue(issue: IIssue, list?: string): Promise<{ newList: boo
     }
   });
 
-  if (!result.ok) {
-    throw new Error(`Failed to create issue ${result.statusText}`);
+  if (!result || !result.ok) {
+    throw new Error(`Failed to create issue ${result?.statusText || 'unknown error'}`);
   }
 
   const body = await result.json();
@@ -33,16 +33,16 @@ async function deleteIssue(issue: string, list?: string): Promise<void> {
     }
   });
 
-  if (!result.ok) {
-    throw new Error(`Failed to create issue ${result.statusText}`);
+  if (!result || !result.ok) {
+    throw new Error(`Failed to create issue ${result?.statusText || 'unknown error'}`);
   }
 }
 
 async function getAll(list?: string): Promise<IIssue[]> {
   const result = await retryableFetch(`${BASE_URL}/issues${list ? `?list=${list}` : ''}`);
 
-  if (!result.ok) {
-    throw new Error(`Failed to load issues ${result.statusText}`);
+  if (!result || !result.ok) {
+    throw new Error(`Failed to load issues ${result?.statusText || 'unknown error'}`);
   }
 
   const body = await result.json();
@@ -63,8 +63,8 @@ async function reorderIssues({ id, previousId }: { id: string, previousId?: stri
     }
   });
 
-  if (!result.ok) {
-    throw new Error(`Failed to reorder issues ${result.statusText}`);
+  if (!result || !result.ok) {
+    throw new Error(`Failed to reorder issues ${result?.statusText || 'unknown error'}`);
   }
 
   const body = await result.json();
@@ -77,8 +77,8 @@ async function resetIssues(list?: string): Promise<void> {
     method: 'DELETE'
   });
 
-  if (!result.ok) {
-    throw new Error(`Failed to reset list  ${result.statusText}`);
+  if (!result || !result.ok) {
+    throw new Error(`Failed to reset list  ${result?.statusText || 'unknown error'}`);
   }
 
   return;
@@ -88,8 +88,9 @@ export async function handleIssueRequest(request: IApiRequestMessage): Promise<v
   const result: IApiResponseMessage = {
     type: request.type,
     method: request.method,
-    data: {}
-  }
+    data: {},
+    originalId: request.issueId || request.issue?._id
+  };
 
   switch (request.method) {
     case 'delete': {
@@ -102,7 +103,6 @@ export async function handleIssueRequest(request: IApiRequestMessage): Promise<v
     }
     case 'post': {
       result.data = await createIssue(request.issue, request.list);
-      result.originalId = request.issue._id;
       break;
     }
     case 'reorder': {

@@ -39,6 +39,11 @@ apiWorker.onmessage = (event: MessageEvent) => {
 
   switch (message.method) {
     case 'delete': {
+      const notification = new PopupNotification('Issue deleted', 'success');
+      notification.display();
+      const elIssue = document.querySelector(`#issue-${message.originalId}`) as IssueItem;
+      elIssue.remove();
+
       break;
     }
     case 'getAll': {
@@ -61,8 +66,6 @@ apiWorker.onmessage = (event: MessageEvent) => {
         const notification = new PopupNotification('New list created', 'info');
         notification.display();
       }
-
-      console.log(message);
 
       const elIssue = document.querySelector(`#issue-${message.originalId}`) as IssueItem;
       elIssue.updateCreateStatus(true, message.data.issue);

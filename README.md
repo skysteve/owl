@@ -8,6 +8,12 @@ In order to see the loading states, you'll probably need to tune the network thr
 
 The project should work in all modern browsers. I developed and tested with Chrome 84.
 
+The site should spin up on [http://localhost:9080/](http://localhost:9080/)
+
+### Creating a new list
+
+To create a new list, simply add `#listName` to the end of the URL. For example `http://localhost:9080/#listOne`. There is also a default list on the root endpoint.
+
 ## Notes
 
 The reordering logic isn't 100% optimal, it will fail in some scenarios especially with really long lists. However, I took the approach that I wouldn't over complicate things and from googling around this seemed to be a reasonable solution. Apparently JIRA uses something similar with string based ordering keys which can be appended to to support long lists. I decided given time constraints and scope, implementing anything more complex was overkill. An alternative approach would've been to just update every item in the list when one order changed, but this felt sub-optimal.
@@ -35,5 +41,4 @@ Taking the project further, it would've been nice to have more time to fix the k
 ## Known Issues
 
 - Limited testing
-- Delete doesn't confirm deletion
 - Docker config isn't ideal, ideally interfaces should be deployed and pulled down from somewhere
