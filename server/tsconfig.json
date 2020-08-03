@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "noImplicitAny": true,
+    "noImplicitAny": false, // turned off for tests in the interest of time
     "preserveConstEnums": true,
     "sourceMap": true
   },

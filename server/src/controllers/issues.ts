@@ -119,7 +119,7 @@ export async function postIssue(db: Db, req: Request, res: Response): Promise<vo
   const { isNew, collection } = await createCollectionIfNotExists(db, req);
 
   issue.order = await collection.countDocuments();
-  issue.order = (issue.order + 1) * 1000;
+  issue.order = (issue.order + 1) * STEP;
 
 
   try {
